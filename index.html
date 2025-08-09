@@ -1,43 +1,174 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>hello</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仁济</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f7;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 16px;
+            background-color: #007AFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            display: block;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn-android {
+            background-color: #3DDC84;
+            color: white;
+        }
+        
+        .btn-ios {
+            background-color: #007AFF;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .divider::before {
+            margin-right: 15px;
+        }
+        
+        .divider::after {
+            margin-left: 15px;
+        }
+        
+        .loading {
+            margin: 30px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid #007AFF;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">APP</div>
+        <h1>下载我们的应用</h1>
+        <p>享受更好的体验</p>
+        
+        <div class="loading" id="autoRedirect">
+            <div class="spinner"></div>
+            正在检测您的设备...
+        </div>
+        
+        <div class="divider">或手动选择</div>
+        
+        <a href="https://play.google.com/store/apps/details?id=com.yourapp" class="btn btn-android">
+            安卓版下载
+        </a>
+        
+        <a href="https://apps.apple.com/app/id1234567890" class="btn btn-ios">
+            iOS版下载
+        </a>
+    </div>
 
-		<!-- Header -->
-			<header id="header">
-				<h1>hello</h1>
-				
-			</header>
-
-		<!-- Signup Form -->
-			<form id="signup-form" method="post">
-				<input type="url" name="url" id="url" placeholder="需要跳转的网址" />
-				<input type="button" value="生成" onclick="build_url()"/>
-			</form>
-			<p id="b_url"></p>
-
-			<script src="./assets/js/build_url.js"></script>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-
-					<li><a href="https://github.com/Qiantigers/qq_fanghong" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-
-				</ul>
-				<ul class="copyright">
-<!-- 					 -->
-				</ul>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/main.js"></script>
-			<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"K8YSQIj3WDtj9gG6",ck:"K8YSQIj3WDtj9gG6"})</script>
-	</body>
+    <script>
+        // 延迟执行让用户能看到加载效果
+        setTimeout(function() {
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            
+            document.getElementById('autoRedirect').innerHTML = '正在跳转到应用商店...';
+            
+            if(isAndroid) {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.yourapp";
+            } else if(isIOS) {
+                window.location.href = "https://apps.apple.com/app/id1234567890";
+            } else {
+                document.getElementById('autoRedirect').innerHTML = '无法自动检测您的设备，请手动选择下载';
+            }
+        }, 1500); // 1.5秒延迟
+    </script>
+</body>
 </html>
-
